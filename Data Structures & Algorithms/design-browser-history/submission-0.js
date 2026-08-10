@@ -1,0 +1,49 @@
+class BrowserHistory {
+    /**
+     * @constructor
+     * @param {string} homepage
+     */
+    constructor(homepage) {
+        this.history = [homepage];
+        this.cursor = 0;
+    }
+
+    /**
+     * @param {string} url
+     * @return {void}
+     */
+    visit(url) {
+        // we want everything before the change
+        this.history.splice(this.cursor + 1);
+        this.history.push(url);
+        this.cursor++;
+    }
+
+    /**
+     * @param {number} steps
+     * @return {string}
+     */
+    back(steps) {
+        let nc =Math.max(0,this.cursor-steps)
+        this.cursor = nc;
+        return this.history[this.cursor];
+    }
+
+    /**
+     * @param {number} steps
+     * @return {string}
+     */
+    forward(steps) {
+        let nc = Math.min(this.history.length-1,this.cursor + steps)
+        this.cursor = nc;
+        return this.history[this.cursor];
+    }
+}
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * var obj = new BrowserHistory(homepage)
+ * obj.visit(url)
+ * var param_2 = obj.back(steps)
+ * var param_3 = obj.forward(steps)
+ */
